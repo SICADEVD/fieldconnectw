@@ -1,0 +1,206 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Campagne;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str; 
+use App\Models\SuiviFormation;
+use App\Models\Suivi_formation;
+use Illuminate\Support\Facades\DB;
+use App\Models\SuiviFormationTheme;
+use Illuminate\Support\Facades\File;
+use App\Models\SuiviFormationVisiteur;
+use App\Models\SuiviFormationProducteur;
+
+class ApisuiviformationController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+	
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+	
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+		 
+
+        if(!file_exists(storage_path(). "/app/public/formations")){ 
+            File::makeDirectory(storage_path(). "/app/public/formations", 0777, true);
+          }
+         
+
+        $input = $request->all();   
+       $input['user_id'] = $input['userid'];
+       
+       if($request->photo_formations){  
+        $image = $request->photo_formations;  
+        $image = Str::after($image,'base64,');
+        $image = str_replace(' ', '+', $image);
+        $imageName = (string) Str::uuid().'.'.'jpg';
+         File::put(storage_path(). "/app/public/formations/" . $imageName, base64_decode($image)); 
+        $photo_formations = "public/formations/$imageName";
+        $input['photo_formation'] = $photo_formations; 
+      }
+      
+        $formation = SuiviFormation::create($input);
+
+        if($formation !=null ){
+            $id = $formation->id;
+            $datas = $datas2 = $datas3 = [];
+            if(($request->producteur !=null)) { 
+                SuiviFormationProducteur::where('suivi_formation_id',$id)->delete();
+                $i=0; 
+                foreach($request->producteur as $data){
+                    if($data !=null)
+                    {
+                        $datas[] = [
+                        'suivi_formation_id' => $id, 
+                        'producteur_id' => $data,  
+                    ];
+                    } 
+                  $i++;
+                } 
+            }
+            if(($request->visiteurs !=null)) { 
+                SuiviFormationVisiteur::where('suivi_formation_id',$id)->delete();
+                $i=0; 
+                foreach($request->visiteurs as $data){
+                    if($data !=null)
+                    {
+                        $datas2[] = [
+                        'suivi_formation_id' => $id, 
+                        'visiteur' => $data,  
+                    ];
+                    } 
+                  $i++;
+                } 
+            }
+            if(($request->theme !=null)) { 
+                SuiviFormationTheme::where('suivi_formation_id',$id)->delete();
+                $i=0; 
+                foreach($request->theme as $data){
+                    if($data !=null)
+                    {
+                        $datas3[] = [
+                        'suivi_formation_id' => $id, 
+                        'themes_formation_id' => $data,  
+                    ];
+                    } 
+                  $i++;
+                } 
+            }
+            SuiviFormationProducteur::insert($datas);
+            SuiviFormationVisiteur::insert($datas2); 
+            SuiviFormationTheme::insert($datas3);
+        }
+
+        return response()->json($formation, 201);
+    }
+
+    public function getTypethemeformation(){
+        $typeformations = DB::table('type_formations')->select('nom','id')->get();
+        $donnees = DB::table('themes_formations')->get();
+        $type_formations_theme = array();
+        foreach($typeformations as $res)
+        {
+ 
+            foreach($donnees as $data){
+                if($data->type_formation_id==$res->id){
+                    $gestlist[] = array('id'=>$data->id, 'libelle'=>$data->nom);
+                    
+                }
+            }
+            $type_formations_theme[] = array(
+                'titretype'=>$res->nom,
+                'idtype'=>$res->id,
+                 "theme"=>$gestlist); 
+             
+             $gestlist =array(); 
+        }
+        return response()->json($type_formations_theme , 201);
+    }
+
+    public function getTypeformation(){
+
+        $typeformations = DB::table('type_formations')->get(); 
+         
+        return response()->json($typeformations , 201);
+    }
+    public function getThemes(){
+        
+        $themes = DB::table('themes_formations')->get(); 
+         
+        return response()->json($themes , 201);
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+	
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+	
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+	
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+	
+        //
+    }
+}
