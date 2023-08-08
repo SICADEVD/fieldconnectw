@@ -71,7 +71,7 @@
                             <span
                                 class="navbar-user__name">{{ auth()->guard('admin')->user()->username }}</span>
                         </span>
-                        <span class="icon"><i class="las la-chevron-circle-down"></i></span>
+                        <span class="icon"><i class="las la-bars"></i></span>
                     </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu--sm p-0 border-0 box--shadow1 dropdown-menu-right">
