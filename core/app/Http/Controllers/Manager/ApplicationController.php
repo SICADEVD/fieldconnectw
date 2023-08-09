@@ -109,6 +109,7 @@ class ApplicationController extends Controller
         } 
 
         $application->save(); 
+        
 
         if($application !=null ){
             $id = $application->id;
