@@ -59,6 +59,8 @@ class ApiapplicationController extends Controller
  
 
         $request->validate($validationRule);
+        $application = new Application();  
+        $campagne = Campagne::active()->first();
       
         if($request->photoZoneTampons){ 
            
@@ -68,8 +70,7 @@ class ApiapplicationController extends Controller
           $imageName = (string) Str::uuid().'.'.'jpg';
            File::put(storage_path(). "/app/public/applications/" . $imageName, base64_decode($image)); 
            $photoZoneTampons = "public/applications/$imageName"; 
-
-          $input['photoZoneTampons'] = $photoZoneTampons; 
+          $application->zoneTampons  = $photoZoneTampons;
         }
         if($request->photoDouche){  
           $image = $request->photoDouche;  
@@ -78,12 +79,11 @@ class ApiapplicationController extends Controller
           $imageName = (string) Str::uuid().'.'.'jpg';
            File::put(storage_path(). "/app/public/applications/" . $imageName, base64_decode($image)); 
           $photoDouche = "public/applications/$imageName"; 
-
-          $input['photoDouche'] = $photoDouche; 
+          $application->presenceDouche  = $photoDouche;
+          
         }
         //$application = Application::create($input); 
-        $application = new Application();  
-        $campagne = Campagne::active()->first();
+        
         $application->parcelle_id  = $request->parcelle;  
         $application->campagne_id  = $campagne->id;
         $application->applicateur_id  = $request->applicateur;
@@ -92,11 +92,12 @@ class ApiapplicationController extends Controller
         $application->degreDangerosite  = $request->degreDangerosite;
         $application->raisonApplication  = $request->raisonApplication;
         $application->delaisReentree  = $request->delaisReentree;
-        $application->zoneTampons  = $request->zoneTampons;
-        $application->presenceDouche  = $request->presenceDouche;
+        
+        
         $application->date_application  = $request->date_application;
         $application->heure_application = $request->heure_application;
-        dd("hello");
+        $application->save(); 
+        
 
         if($application !=null ){
           $id = $application->id;
