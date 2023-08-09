@@ -43,14 +43,61 @@ class ApisuiviparcelleController extends Controller
      */
     public function store(Request $request)
     {
-      
         //
-        $input = $request->all();  
-        
-        $suiviparcelle = SuiviParcelle::create($input);
+        //$input = $request->all();  
+        //$suiviparcelle = SuiviParcelle::create($input);
+        $suivi_parcelle = new SuiviParcelle();
+        $validationRule = [
+            'parcelle'    => 'required|exists:parcelles,id',
+            'campagne' => 'required|max:255',  
+            'dateVisite'  => 'required|max:255', 
+        ];
+ 
 
-        if($suiviparcelle !=null ){
-            $id = $suiviparcelle->id;
+        $request->validate($validationRule);
+
+        $suivi_parcelle->parcelle_id  = $request->parcelle;  
+        $suivi_parcelle->campagne_id  = $request->campagne;
+        $suivi_parcelle->varietes_cacao  = $request->varietes_cacao;
+        $suivi_parcelle->autreVariete  = $request->autreVariete;
+        $suivi_parcelle->existeCoursEaux  = $request->existeCoursEaux;
+        $suivi_parcelle->cours_eaux  = $request->cours_eaux;
+        $suivi_parcelle->pente  = $request->pente;
+        $suivi_parcelle->varieteAbres  = $request->varieteAbres;
+        $suivi_parcelle->nombreSauvageons  = $request->nombreSauvageons;
+        $suivi_parcelle->arbresagroforestiers  = $request->arbresagroforestiers;
+        $suivi_parcelle->activiteTaille  = $request->activiteTaille;
+        $suivi_parcelle->activiteEgourmandage = $request->activiteEgourmandage; 
+        $suivi_parcelle->activiteDesherbageManuel = $request->activiteDesherbageManuel;
+        $suivi_parcelle->activiteRecolteSanitaire = $request->activiteRecolteSanitaire;
+        $suivi_parcelle->intrantNPK = $request->intrantNPK;  
+        $suivi_parcelle->nombresacsNPK = $request->nombresacsNPK; 
+        $suivi_parcelle->intrantFiente = $request->intrantFiente; 
+        $suivi_parcelle->nombresacsFiente    = $request->nombresacsFiente;
+        $suivi_parcelle->intrantComposte    = $request->intrantComposte;
+        $suivi_parcelle->nombresacsComposte    = $request->nombresacsComposte;
+        $suivi_parcelle->presencePourritureBrune    = $request->presencePourritureBrune;
+        $suivi_parcelle->presenceBioAgresseur    = $request->presenceBioAgresseur;
+        $suivi_parcelle->presenceInsectesRavageurs    = $request->presenceInsectesRavageurs;
+        $suivi_parcelle->presenceFourmisRouge    = $request->presenceFourmisRouge; 
+        $suivi_parcelle->presenceAraignee    = $request->presenceAraignee; 
+        $suivi_parcelle->presenceVerTerre    = $request->presenceVerTerre; 
+        $suivi_parcelle->presenceMenteReligieuse    = $request->presenceMenteReligieuse; 
+        $suivi_parcelle->presenceSwollenShoot    = $request->presenceSwollenShoot; 
+        $suivi_parcelle->presenceInsectesParasites    = $request->presenceInsectesParasites; 
+        $suivi_parcelle->nomInsecticide    = $request->nomInsecticide; 
+        $suivi_parcelle->nombreInsecticide    = $request->nombreInsecticide; 
+        $suivi_parcelle->nomFongicide    = $request->nomFongicide; 
+        $suivi_parcelle->nombreFongicide    = $request->nombreFongicide; 
+        $suivi_parcelle->nomHerbicide    = $request->nomHerbicide; 
+        $suivi_parcelle->nombreHerbicide    = $request->nombreHerbicide; 
+        $suivi_parcelle->nombreDesherbage    = $request->nombreDesherbage; 
+        $suivi_parcelle->dateVisite    = $request->dateVisite;  
+
+        $suivi_parcelle->save(); 
+
+        if($suivi_parcelle !=null ){
+            $id = $suivi_parcelle->id;
             $datas = [];
             $datas2 = [];
             $datas3 = [];
@@ -122,7 +169,7 @@ class ApisuiviparcelleController extends Controller
         SuiviParcellesOmbrage::insert($datas);
         }
 
-        return response()->json($suiviparcelle, 201);
+        return response()->json($suivi_parcelle, 201);
     }
 
     /**

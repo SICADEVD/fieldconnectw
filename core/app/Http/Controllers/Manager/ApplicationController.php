@@ -62,6 +62,7 @@ class ApplicationController extends Controller
  
 
         $request->validate($validationRule);
+        dd(response()->json($request));
 
         $localite = Localite::where('id', $request->localite)->first();
 

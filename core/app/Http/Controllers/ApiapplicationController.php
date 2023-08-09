@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campagne;
 use App\Models\Application;
-use App\Models\ApplicationInsecte;
-use App\Models\ApplicationMatieresactive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;  
+use App\Models\ApplicationInsecte;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Models\ApplicationMatieresactive;
 
 class ApiapplicationController extends Controller
 {
@@ -43,9 +44,21 @@ class ApiapplicationController extends Controller
     public function store(Request $request)
     {
 	
-      
-      
-        $input = $request->all();   
+        //$input = $request->all();   
+
+        $validationRule = [
+            'parcelle'    => 'required|exists:parcelles,id',
+            'applicateur'    => 'required|exists:users,id',
+            'superficiePulverisee'  => 'required|max:255',
+            'marqueProduitPulverise'  => 'required|max:255',
+            'raisonApplication'  => 'required|max:255', 
+            'delaisReentree'  => 'required|max:255',
+            'date_application'  => 'required|max:255',
+            'heure_application'  => 'required|max:255', 
+        ];
+ 
+
+        $request->validate($validationRule);
       
         if($request->photoZoneTampons){ 
            
@@ -68,7 +81,22 @@ class ApiapplicationController extends Controller
 
           $input['photoDouche'] = $photoDouche; 
         }
-        $application = Application::create($input); 
+        //$application = Application::create($input); 
+        $application = new Application();  
+        $campagne = Campagne::active()->first();
+        $application->parcelle_id  = $request->parcelle;  
+        $application->campagne_id  = $campagne->id;
+        $application->applicateur_id  = $request->applicateur;
+        $application->superficiePulverisee  = $request->superficiePulverisee;
+        $application->marqueProduitPulverise  = $request->marqueProduitPulverise;
+        $application->degreDangerosite  = $request->degreDangerosite;
+        $application->raisonApplication  = $request->raisonApplication;
+        $application->delaisReentree  = $request->delaisReentree;
+        $application->zoneTampons  = $request->zoneTampons;
+        $application->presenceDouche  = $request->presenceDouche;
+        $application->date_application  = $request->date_application;
+        $application->heure_application = $request->heure_application;
+        dd("hello");
 
         if($application !=null ){
           $id = $application->id;

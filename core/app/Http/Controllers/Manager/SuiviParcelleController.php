@@ -56,9 +56,8 @@ class SuiviParcelleController extends Controller
             'dateVisite'  => 'required|max:255', 
         ];
  
-
         $request->validate($validationRule);
-
+        
         $localite = Localite::where('id', $request->localite)->first();
 
         if ($localite->status == Status::NO) {

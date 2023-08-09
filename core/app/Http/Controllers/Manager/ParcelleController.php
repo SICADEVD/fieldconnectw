@@ -54,6 +54,8 @@ class ParcelleController extends Controller
          
         $request->validate($validationRule);
 
+        
+
         $localite = Localite::where('id', $request->localite)->first();
 
         if ($localite->status == Status::NO) {

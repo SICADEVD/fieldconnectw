@@ -11,6 +11,8 @@ class SuiviParcelle extends Model
 {
     use Searchable, GlobalStatus, PowerJoins;
 
+    //protected $guarded = [];
+
     public function campagne()
     {
         return $this->belongsTo(Campagne::class);

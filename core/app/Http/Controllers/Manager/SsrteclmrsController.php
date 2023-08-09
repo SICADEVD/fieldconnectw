@@ -71,6 +71,8 @@ class SsrteclmrsController extends Controller
  
 
         $request->validate($validationRule);
+        //dd($request);
+        //dd(response()->json($request));
 
         $localite = Localite::where('id', $request->localite)->first();
 
