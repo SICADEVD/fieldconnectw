@@ -59,7 +59,6 @@ class EstimationController extends Controller
             'date_estimation'  => 'required|max:255', 
         ];
  
-        dd($request);
 
         $request->validate($validationRule);
 
