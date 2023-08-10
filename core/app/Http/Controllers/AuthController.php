@@ -28,7 +28,7 @@ class AuthController extends Controller
                 $q->where('name', 'Delegue');
                 }
                 )
-                ->where('cooperatives_id', $cooperativesid)
+                ->where('cooperative_id', $cooperativesid)
                 ->select('id',DB::raw("CONCAT(lastname,' ', firstname) as nom"))
                 ->get();
       return response()->json($delegues, 201);
@@ -43,7 +43,7 @@ class AuthController extends Controller
                 $q->where('name', 'Applicateur');
                 }
                 )
-                ->where('cooperatives_id', $cooperativesid)
+                ->where('cooperative_id', $cooperativesid)
                 ->select('id',DB::raw("CONCAT(lastname,' ', firstname) as nom"))
                 ->get();
       return response()->json($applicateur, 201);
