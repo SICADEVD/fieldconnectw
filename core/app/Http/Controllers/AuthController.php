@@ -31,6 +31,7 @@ class AuthController extends Controller
 
     public function getapplicateurs(Request $request)
     { 
+
         
         $input = $request->all(); 
         $cooperativesid = $input['cooperativesid'];

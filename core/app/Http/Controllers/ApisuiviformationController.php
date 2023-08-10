@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campagne;
+use App\Models\Localite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str; 
 use App\Models\SuiviFormation;
@@ -50,10 +51,29 @@ class ApisuiviformationController extends Controller
         if(!file_exists(storage_path(). "/app/public/formations")){ 
             File::makeDirectory(storage_path(). "/app/public/formations", 0777, true);
           }
-         
 
-        $input = $request->all();   
-       $input['user_id'] = $input['userid'];
+          $validationRule = [
+            'localite'    => 'required|exists:localites,id',
+            'staff' => 'required|exists:users,id',
+            'producteur' => 'required|max:255',
+            'lieu_formation'  => 'required|max:255',
+            'type_formation'  => 'required|max:255',
+            'theme'  => 'required|max:255', 
+            'date_formation' => 'required|max:255', 
+        ];
+ 
+
+        $request->validate($validationRule);
+
+         
+        $formation = new SuiviFormation();
+        $campagne = Campagne::active()->first();
+        $formation->localite_id  = $request->localite;  
+        $formation->campagne_id  = $campagne->id;
+        $formation->user_id  = $request->staff;  
+        $formation->lieu_formation  = $request->lieu_formation;
+        $formation->type_formation_id  = $request->type_formation;
+        $formation->date_formation     = $request->date_formation; 
        
        if($request->photo_formations){  
         $image = $request->photo_formations;  
@@ -64,8 +84,8 @@ class ApisuiviformationController extends Controller
         $photo_formations = "public/formations/$imageName";
         $input['photo_formation'] = $photo_formations; 
       }
+      $formation->save(); 
       
-        $formation = SuiviFormation::create($input);
 
         if($formation !=null ){
             $id = $formation->id;
