@@ -23,20 +23,28 @@ class AuthController extends Controller
        
         $input = $request->all(); 
         $cooperativesid = $input['cooperativesid'];
-        $delegues = User::where([['user_type','applicateur'],['cooperative_id', $cooperativesid]])
-                ->select('id',  DB::raw("CONCAT(lastname,' ', firstname) as nom"))
+        $delegues = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'Delegue');
+                }
+                )
+                ->where('cooperatives_id', $cooperativesid)
+                ->select('id','name as nom')
                 ->get();
       return response()->json($delegues, 201);
     }
 
     public function getapplicateurs(Request $request)
     { 
-
-        
         $input = $request->all(); 
         $cooperativesid = $input['cooperativesid'];
-        $applicateur = User::where([['user_type','applicateur'],['cooperative_id', $cooperativesid]])
-                ->select('id',  DB::raw("CONCAT(lastname,' ', firstname) as nom"))
+        $applicateur = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'Applicateur');
+                }
+                )
+                ->where('cooperatives_id', $cooperativesid)
+                ->select('id','name as nom')
                 ->get();
       return response()->json($applicateur, 201);
     }
