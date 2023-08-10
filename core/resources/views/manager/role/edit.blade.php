@@ -1,13 +1,14 @@
 @extends('manager.layouts.app')
 @section('panel')
-  
-    <div class="bg-light p-4 rounded">
-        <div class="container mt-4">
+<div class="row mb-none-30">
+        <div class="col-lg-12 col-md-12 mb-30">
+            <div class="card">
+                <div class="card-body">
             <form method="POST" action="{{ route('manager.roles.update', $role->id) }}">
                 @method('patch')
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Nom</label>
                     <input value="{{ $role->name }}" 
                         type="text" 
                         class="form-control" 
@@ -44,6 +45,8 @@
                 </table>
                 <button type="submit" class="btn btn-primary mt-4 w-100 h-45">Enregister</button>
             </form>
+            </div>
+            </div>
         </div>
     </div>
 @endsection

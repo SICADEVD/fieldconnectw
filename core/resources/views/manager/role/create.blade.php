@@ -17,8 +17,8 @@
                         <label for="permissions" class="form-label">Attribuer permission</label>
                         <table class="table table-striped">
                             <thead>
-                                <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                                <th scope="col" width="20%">Name</th>
+                                <th scope="col" width="1%"><input type="checkbox" class="checkAll"  name="all_permission"></th>
+                                <th scope="col" width="20%">Nom</th>
                                 <th scope="col" width="1%">Guard</th> 
                             </thead>
                             @forelse($permissions as $permission)
@@ -68,4 +68,36 @@
 @endsection
 @push('breadcrumb-plugins')
     <x-back route="{{ route('manager.roles.index') }}" />
+@endpush
+@push('script')
+    <script type="text/javascript">
+        (function($) {
+            "use strict";
+           
+            $(".permission").on('change', function(e) {
+                let totalLength = $(".permission").length;
+                let checkedLength = $(".permission:checked").length;
+                if (totalLength == checkedLength) {
+                    $('.checkAll').prop('checked', true);
+                } else {
+                    $('.checkAll').prop('checked', false);
+                }
+                if (checkedLength) {
+                    $('.dispatch').removeClass('d-none')
+                } else {
+                    $('.dispatch').addClass('d-none')
+                }
+            });
+
+            $('.checkAll').on('change', function() {
+                if ($('.checkAll:checked').length) {
+                    $('.permission').prop('checked', true);
+                } else {
+                    $('.permission').prop('checked', false);
+                }
+                $(".permission").change();
+            });
+
+        })(jQuery)
+    </script>
 @endpush
