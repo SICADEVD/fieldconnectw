@@ -18,12 +18,12 @@
                                 </select>
                             </div>  
                             <div class="form-group col-lg-4">
-                                <label>@lang('Role')</label>
-                                <select class="form-control" name="role" required>
-                                    <option value="">@lang('Selectionner une option')</option> 
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}" @selected(old('role'))>
-                                            {{ __($role->name) }}</option>
+                                <label for="rolePermission" class="form-label">Role</label>
+                                <select class="form-control" 
+                                    name="role" required>
+                                    <option value="">Selectionner un rôle</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
