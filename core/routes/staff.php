@@ -63,7 +63,7 @@ Route::namespace('Auth')->group(function () {
                 //New Route
                 Route::get('sent/queue', 'sentQueue')->name('sent.queue');
                 Route::post('dispatch-all/', 'livraisonAllDispatch')->name('dispatch.all');
-                Route::get('dispatch', 'livraisonDispatch')->name('dispatch');
+                Route::get('dispatch/list', 'livraisonDispatch')->name('dispatch');
                 Route::post('status/{id}', 'dispatched')->name('dispatched');
                 Route::get('upcoming', 'upcoming')->name('upcoming');
                 Route::post('receive/{id}', 'receive')->name('receive');
