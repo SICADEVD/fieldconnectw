@@ -78,44 +78,6 @@
                         <span class="menu-title">@lang('Gestion des Staffs')</span>
                     </a>
                 </li>
-                {{-- Gestion Magasin --}}
-                {{-- <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="{{ menuActive('manager.staff.*', 3) }}">
-                        <i class="menu-icon las la-users"></i>
-                        <span class="menu-title">@lang('Gestion Magasin') </span>
-                    </a>
-                    <div class="sidebar-submenu {{ menuActive('manager.staff.*', 2) }} ">
-                        <ul>
-
-                            <li class="sidebar-menu-item {{ menuActive('manager.staff.magasin.index') }}">
-                                <a href="{{ route('manager.traca.producteur.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Producteurs')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('manager.traca.parcelle.index') }}">
-                                <a href="{{ route('manager.traca.parcelle.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Parcelles')</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-menu-item {{ menuActive('manager.traca.estimation.index') }}">
-                                <a href="{{ route('manager.traca.estimation.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Estimations')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('manager.livraison.deliveryInQueue') }}">
-                                <a href="{{ route('manager.livraison.deliveryInQueue') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Livraison')</span>
-                                </a>
-                            </li> 
-
-                        </ul>
-                    </div>
-                </li> --}}
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{ menuActive('manager.traca.*', 3) }}">
                         <i class="menu-icon las la-users"></i>

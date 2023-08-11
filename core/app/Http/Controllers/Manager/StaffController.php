@@ -217,7 +217,6 @@ class StaffController extends Controller
         $magasin->email = $request->email;
         $magasin->adresse   = $request->adresse;
         $magasin->save();
-        dd($request);
         $notify[] = ['success', isset($message) ? $message  : 'Le magasin a été ajouté avec succès.'];
         return back()->withNotify($notify);
     }
