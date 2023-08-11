@@ -42,7 +42,7 @@ class LivraisonController extends Controller
 
     public function store(Request $request)
     {
-        
+        dd(response()->json($request));
         
         $request->validate([
             'sender_staff' => 'required|exists:users,id',
