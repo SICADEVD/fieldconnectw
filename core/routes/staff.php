@@ -62,14 +62,20 @@ Route::namespace('Auth')->group(function () {
                 Route::get('received/list', 'receivedLivraisonList')->name('received.list');
                 //New Route
                 Route::get('sent/queue', 'sentQueue')->name('sent.queue');
-                Route::post('dispatch-all/', 'livraisonAllDispatch')->name('dispatch.all');
-                Route::get('dispatch/list', 'livraisonDispatch')->name('dispatch');
+                Route::post('dispatch-all/', 'livraisonAllDispatch')->name('dispatch.all'); 
                 Route::post('status/{id}', 'dispatched')->name('dispatched');
                 Route::get('upcoming', 'upcoming')->name('upcoming');
                 Route::post('receive/{id}', 'receive')->name('receive');
                 Route::get('delivery/queue', 'deliveryQueue')->name('delivery.queue');
                 Route::get('delivery/list/total', 'delivered')->name('manage.delivered');
                 Route::get('parcelle', 'getParcelle')->name('get.parcelle');
+
+                Route::get('list', 'livraisonInfo')->name('index');
+                            Route::get('dispatch/list', 'dispatchLivraison')->name('dispatch');
+                            Route::get('sent-queue/list', 'sentInQueue')->name('sentQueue');
+                            Route::get('delivered', 'delivered')->name('delivered'); 
+                            Route::get('sent', 'sentLivraison')->name('sent');
+                            Route::get('/exportLivraisonsExcel', 'exportExcel')->name('exportExcel.livraisonAll');
             });
 
             Route::controller('LivraisonController')->prefix('cashs')->group(function () {
@@ -226,20 +232,7 @@ Route::namespace('Auth')->group(function () {
                         });
             
                         //Manage Livraison
-                     
-                        Route::controller('LivraisonController')->name('livraison.')->prefix('livraison')->group(function () {
-                            Route::get('list', 'livraisonInfo')->name('index');
-                            Route::get('dispatch/list', 'dispatchLivraison')->name('dispatch');
-                            Route::get('upcoming/list', 'upcoming')->name('upcoming');
-                            Route::get('sent-queue/list', 'sentInQueue')->name('sentQueue');
-                            Route::get('delivery-queue/list', 'deliveryInQueue')->name('deliveryInQueue');
-                            Route::get('delivered', 'delivered')->name('delivered');
-                            Route::get('search', 'livraisonSearch')->name('search');
-                            Route::get('invoice/{id}', 'invoice')->name('invoice');
-                            Route::get('sent', 'sentLivraison')->name('sent');
-                            Route::get('/exportLivraisonsExcel', 'exportExcel')->name('exportExcel.livraisonAll');
-                        });
-                        
+                      
 
 
         });

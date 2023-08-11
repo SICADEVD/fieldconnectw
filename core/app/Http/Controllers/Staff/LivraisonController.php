@@ -344,7 +344,7 @@ class LivraisonController extends Controller
         return view('staff.livraison.sentQueue', compact('pageTitle', 'livraisonLists'));
     }
 
-    public function livraisonDispatch()
+    public function dispatchLivraison()
     {
         $pageTitle    = 'Livraison expédiée';
         $user         = auth()->user();
