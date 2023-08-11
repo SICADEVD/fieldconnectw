@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\Status;
-use App\Models\AdminNotification;
+use App\Models\User;
 use App\Models\Campagne;
+use App\Constants\Status;
+use App\Models\Livraison;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str; 
-use App\Models\Livraison;
 use App\Models\LivraisonInfo;
-use App\Models\LivraisonPayment;
 use App\Models\LivraisonPrime;
-use App\Models\LivraisonProduct;
-use App\Models\Livraisons_temporaire;
 use App\Models\LivraisonScelle;
+use App\Models\LivraisonPayment;
+use App\Models\LivraisonProduct;
+use App\Models\AdminNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use App\Models\Livraisons_temporaire;
 
 class ApilivraisonController extends Controller
 {
@@ -49,11 +50,11 @@ class ApilivraisonController extends Controller
      */
     public function store(Request $request)
     {
-        $sender                      = auth()->user();
+        $sender                      = User::find($request->userid);
         $livraison                     = new LivraisonInfo();
         $livraison->invoice_id         = getTrx();
         $livraison->code               = getTrx();
-        $livraison->sender_cooperative_id   = $sender->cooperative_id;
+        $livraison->sender_cooperative_id   = $request->cooperative;
         $livraison->sender_staff_id    = $request->sender_staff;
         $livraison->sender_name        = $request->sender_name;
         $livraison->sender_email       = $request->sender_email;
@@ -63,7 +64,7 @@ class ApilivraisonController extends Controller
         $livraison->receiver_email     = $request->receiver_email;
         $livraison->receiver_phone     = $request->receiver_phone;
         $livraison->receiver_address   = $request->receiver_address;
-        $livraison->receiver_cooperative_id = $sender->cooperative_id;
+        $livraison->receiver_cooperative_id = $request->cooperative;
         $livraison->receiver_magasin_section_id = $request->magasin_section;
         $livraison->estimate_date      = $request->estimate_date;
         $livraison->save();

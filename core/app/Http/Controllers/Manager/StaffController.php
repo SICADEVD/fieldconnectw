@@ -201,6 +201,7 @@ class StaffController extends Controller
             'staff'  => 'required',
             'phone'  => 'required', 
         ]);
+        
 
         if ($request->id) {
             $magasin    = Magasin_section::findOrFail($request->id);
@@ -209,6 +210,7 @@ class StaffController extends Controller
             $magasin = new Magasin_section();
             $magasin->code = $this->generecodemagasin();
         }
+        
         $magasin->nom    = $request->nom ;
         $magasin->staff_id = $request->staff;
         $magasin->phone = $request->phone;

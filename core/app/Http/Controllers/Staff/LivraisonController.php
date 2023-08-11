@@ -21,6 +21,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Dd;
 
 class LivraisonController extends Controller
 {
@@ -41,17 +42,11 @@ class LivraisonController extends Controller
 
     public function store(Request $request)
     {
+        // dd(response()->json($request));
+        
         $request->validate([
             'sender_staff' => 'required|exists:users,id',
-            'magasin_section' =>  'required|exists:magasin_sections,id',
-            'sender_name'      => 'required|max:40',
-            'sender_email'     => 'required|email|max:40',
-            'sender_phone'     => 'required|string|max:40',
-            'sender_address'   => 'required|max:255',
-            'receiver_name'    => 'required|max:40',
-            'receiver_email'   => 'required|email|max:40',
-            'receiver_phone'   => 'required|string|max:40',
-            'receiver_address' => 'required|max:255',
+            'magasin_section' =>  'required|exists:magasin_sections,id', 
             'items'            => 'required|array',
             'items.*.type'     => 'required',
             'items.*.producteur'     => 'required|integer',
@@ -174,18 +169,11 @@ class LivraisonController extends Controller
     {
 
         $id = decrypt($id);
-
+        
+        
         $request->validate([
             'sender_staff' => 'required|exists:users,id',
-            'magasin_section' =>  'required|exists:magasin_sections,id',
-            'sender_name'      => 'required|max:40',
-            'sender_email'     => 'required|email|max:40',
-            'sender_phone'     => 'required|string|max:40',
-            'sender_address'   => 'required|max:255',
-            'receiver_name'    => 'required|max:40',
-            'receiver_email'   => 'required|email|max:40',
-            'receiver_phone'   => 'required|string|max:40',
-            'receiver_address' => 'required|max:255',
+            'magasin_section' =>  'required|exists:magasin_sections,id',  
             'items'            => 'required|array',
             'items.*.type'     => 'required',
             'items.*.producteur'     => 'required|integer',
