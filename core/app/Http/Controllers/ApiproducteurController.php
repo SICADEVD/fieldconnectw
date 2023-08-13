@@ -50,7 +50,8 @@ class ApiproducteurController extends Controller
     //creation de getstaff(elle retourne les staff d'une cooperative donnée)
     public function getstaff(Request $request){
       try{
-        $cooperativeId = 3;
+        // $userid = $input['userid'];
+        $cooperativeId = $request->cooperative_id;
         $staffs = DB::table('users')
         ->select('users.id', 'users.firstname', 'users.lastname', 'users.username', 'users.email', 'users.mobile', 'roles.name as role')
         ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
