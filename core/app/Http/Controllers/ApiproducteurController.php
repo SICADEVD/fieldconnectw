@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Models\Producteur_infos_typeculture;
 use App\Models\Producteur_infos_maladieenfant;
+use App\Models\User;
+Use Exception;
 
 class ApiproducteurController extends Controller
 {
@@ -44,6 +46,23 @@ class ApiproducteurController extends Controller
         // }
         $producteur = DB::table('producteurs')->select('id', 'prenoms', 'nom','codeProd','localite_id')->get();
         return response()->json($producteur , 201);
+    }
+    //creation de getstaff(elle retourne les staff d'une cooperative donnée)
+    public function getstaff(Request $request){
+      try{
+        $cooperativeId = 3;
+        $staffs = DB::table('users')
+        ->select('users.id', 'users.firstname', 'users.lastname', 'users.username', 'users.email', 'users.mobile', 'roles.name as role')
+        ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+        ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->where('model_has_roles.model_type', 'App\Models\User')
+        ->where('users.cooperative_id', $cooperativeId)
+        ->get();
+        return response()->json($staffs , 201);
+      }
+      catch(Exception $e){
+        return response()->jsone($e);
+      }
     }
     /**
      * Show the form for creating a new resource.

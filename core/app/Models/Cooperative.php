@@ -10,4 +10,9 @@ use Kirschbaum\PowerJoins\PowerJoins;
 class Cooperative extends Model
 {
     use Searchable, GlobalStatus, PowerJoins;
+    
+    public function cooperativeUsers(){
+        return $this->hasMany(User::class,'cooperative_id','id');
+
+    }
 }
