@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Localite;
+use App\Constants\Status;
 use Illuminate\Http\Request;
-use App\Models\Suivi_parcelle;
 use App\Models\SuiviParcelle;
-use App\Models\SuiviParcellesAgroforesterie;
+use App\Models\Suivi_parcelle;
+use Illuminate\Support\Facades\DB;
 use App\Models\SuiviParcellesAnimal;
 use App\Models\SuiviParcellesOmbrage;
 use App\Models\SuiviParcellesParasite;
-use Illuminate\Support\Facades\DB;
+use App\Models\SuiviParcellesAgroforesterie;
 
 class ApisuiviparcelleController extends Controller
 {
@@ -43,18 +45,24 @@ class ApisuiviparcelleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        //$input = $request->all();  
-        //$suiviparcelle = SuiviParcelle::create($input);
-        $suivi_parcelle = new SuiviParcelle();
         $validationRule = [
             'parcelle'    => 'required|exists:parcelles,id',
             'campagne' => 'required|max:255',  
             'dateVisite'  => 'required|max:255', 
         ];
- 
-
+        
         $request->validate($validationRule);
+        $localite = Localite::where('id', $request->localite)->first();
+        if ($localite->status == Status::NO) {
+            $notify ='Cette localité est désactivée';
+            return back()->withNotify($notify)->withInput();
+        }
+        if($request->id) {
+            $suivi_parcelle = SuiviParcelle::findOrFail($request->id);
+            $message = "Le suivi parcelle a été mise à jour avec succès";
+        } else {
+            $suivi_parcelle = new SuiviParcelle();  
+        } 
 
         $suivi_parcelle->parcelle_id  = $request->parcelle;  
         $suivi_parcelle->campagne_id  = $request->campagne;
