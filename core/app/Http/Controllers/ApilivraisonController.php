@@ -159,10 +159,9 @@ class ApilivraisonController extends Controller
     }
 
     public function getMagasinsection(Request $request){
-        $input = $request->all();  
-        $userid = $input['userid'];
-        //$magasins = DB::table('magasinsections')->where('delegues_id', $userid)->get();
-        $magasins = DB::table('magasinsections')->get();
+        // $input = $request->all();  
+        // $userid = $input['userid'];
+        $magasins = DB::table('magasin_sections')->get();
         return response()->json($magasins, 201);
     }
     public function generecodeliv()
