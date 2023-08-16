@@ -25,6 +25,9 @@ use Termwind\Components\Dd;
 
 class LivraisonController extends Controller
 {
+    public function livraisonInfo(){
+        dd('hello');
+    }
     public function create()
     {
         $pageTitle = 'Enregistrement de livraison';
