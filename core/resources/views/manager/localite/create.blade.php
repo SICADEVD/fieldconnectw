@@ -294,6 +294,7 @@ var centresante= $('.centresante').val();
   if(centresante=='non')
   {
    $('#kmCentresante').show('slow');
+   $('.kmCentresante').show('slow');
   }
   else{
    $('#kmCentresante').hide('slow');
