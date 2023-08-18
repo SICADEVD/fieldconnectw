@@ -94,7 +94,7 @@ class ApievaluationController extends Controller
     }
 
     public function getQuestionnaire(){
-        $categoriequestionnaire = DB::table('categoriequestionnaires')->get();
+        $categoriequestionnaire = DB::table('categorie_questionnaires')->get();
         $donnees = DB::table('questionnaires')->get();
         $questionnaires = array();
         $gestlist =array();
@@ -102,8 +102,8 @@ class ApievaluationController extends Controller
         {
  
             foreach($donnees as $data){
-                if($data->categoriequestionnaires_id==$categquest->id){
-                    $gestlist[] = array('id'=>$data->id, 'libelle'=>$data->questionnaires_nom);
+                if($data->categorie_questionnaire_id==$categquest->id){
+                    $gestlist[] = array('id'=>$data->id, 'libelle'=>$data->nom);
                     
                 }
             }
