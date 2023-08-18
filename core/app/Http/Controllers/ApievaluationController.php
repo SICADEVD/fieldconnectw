@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campagne;
+use App\Models\Localite;
+use App\Constants\Status;
+use App\Models\Evaluation;
+use App\Models\Inspection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str; 
-use App\Models\Evaluation;
 use Illuminate\Support\Facades\DB;
+use App\Models\InspectionQuestionnaire;
 
 class ApievaluationController extends Controller
 {
@@ -39,40 +44,53 @@ class ApievaluationController extends Controller
      */
     public function store(Request $request)
     {
-		
-    
-        $input = $request->all();  
-         $note=0; 
-         $totalnote=0;
-        if(isset($input['reponse']) && count($input['reponse'])>0){
-              foreach($input['reponse'] as $value){
-                $note = $note + $value;
-              }
-            
+		$validationRule = [
+            'producteur'    => 'required|exists:producteurs,id',
+            'encadreur' => 'required|exists:users,id', 
+            'note'  => 'required|max:255',
+            'date_evaluation'  => 'required|max:255', 
+        ];
+        $request->validate($validationRule);
+        $localite = Localite::where('id', $request->localite)->first();
+
+        if ($localite->status == Status::NO) {
+            $notify[] = ['error', 'Cette localité est désactivé'];
+            return back()->withNotify($notify)->withInput();
         }
         
-        $input['note'] = $note; 
+        if($request->id) {
+            $inspection = Inspection::findOrFail($request->id); 
+            $message = "L'inspection a été mise à jour avec succès";
 
-    $evaluation = Evaluation::create($input);
-
-    
-        if($evaluation !=null){
-
-        $id = $evaluation->id;
-          if(isset($input['reponse']) && count($input['reponse'])>0 ) {
-             
-            $i=0;
-            foreach($input['reponse'] as $key => $data){
-              DB::table('evaluation_questionnaire')->insert(['evaluation_id'=>$id,'questionnaire_id'=>$key,'notation'=>$data]);
-              $i++;
+        } else {
+            $inspection = new Inspection();  
+        } 
+        $campagne = Campagne::active()->first();
+        $inspection->producteur_id  = $request->producteur;  
+        $inspection->campagne_id  = $campagne->id;
+        $inspection->formateur_id  = $request->encadreur;
+        $inspection->note  = $request->note;
+        $inspection->date_evaluation     = $request->date_evaluation; 
+        $inspection->save(); 
+        if($inspection !=null ){
+            $id = $inspection->id;
+            $datas = []; 
+           
+            if(count($request->reponse)) { 
+                InspectionQuestionnaire::where('inspection_id',$id)->delete();
+                $i=0; 
+                foreach($request->reponse as $key=>$value){
+                     
+                        $datas[] = [
+                        'inspection_id' => $id, 
+                        'questionnaire_id' => $key, 
+                        'notation' => $value, 
+                    ];  
+                } 
             }
-            
+            InspectionQuestionnaire::insert($datas);
         }
-       
- 
-      }
-
-         return response()->json($evaluation, 201);
+        return response()->json($inspection, 201);
     }
 
     public function getQuestionnaire(){
