@@ -21,8 +21,8 @@ class ApilocaliteController extends Controller
         //
         $input = $request->all();   
       
-        // $localite = DB::table('roles_localites as rl')->join('localites as l', 'rl.localites_id','=','l.id')->where('users_id', $input['userid'])->select('l.id','l.nom')->get();
-        $localite = DB::table('localites')->select('id', 'cooperative_id', 'nom')->get();
+        $localite = DB::table('user_localites as rl')->join('localites as l', 'rl.localite_id','=','l.id')->where('user_id', $input['userid'])->select('l.id','l.nom','cooperative_id')->get();
+        // $localite = DB::table('localites')->select('id', 'cooperative_id', 'nom')->get();
 
         
         return response()->json($localite, 201);
