@@ -49,28 +49,33 @@ class ApiproducteurController extends Controller
     }
     //creation de getstaff(elle retourne les staff d'une cooperative donnée)
     public function getstaff(Request $request){
+
+      // try{
+         
+      //   $cooperativeId = $request->cooperative_id;
+      //   $roleName = $request->role_name;
+      //   $staffs = DB::table('users')
+      //   ->select('users.id', 'users.firstname', 'users.lastname', 'users.username', 'users.email', 'users.mobile', 'roles.name as role', 'users.cooperative_id')
+      //   ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+      //   ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+      //   ->where('model_has_roles.model_type', 'App\Models\User')
+      //   ->where('users.cooperative_id', $cooperativeId)
+      //   ->where(function ($query) use ($roleName) {
+      //     $query->whereRaw('LOWER(roles.name) = ?', [strtolower($roleName)]);
+      //   })
+      //   ->get();
       try{
-        // $userid = $input['userid'];
-        $cooperativeId = $request->cooperative_id;
-        $roleName = $request->role_name;
-        // $staffs = DB::table('users')
-        // ->select('users.id', 'users.firstname', 'users.lastname', 'users.username', 'users.email', 'users.mobile', 'roles.name as role', 'users.cooperative_id')
-        // ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-        // ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
-        // ->where('model_has_roles.model_type', 'App\Models\User')
-        // ->where('users.cooperative_id', $cooperativeId)
-        // ->where(function ($query) use ($roleName) {
-        //   $query->whereRaw('LOWER(roles.name) = ?', [strtolower($roleName)]);
-        // })
-        // ->get();
-        $staffs = User::whereHas(
-          'roles', function($q) use ($roleName){
-              $q->where('name', $roleName);
-              }
-              )
-              ->where('cooperative_id', $cooperativeId)
-              ->select('id','firstname', 'lastname', 'username', 'email', 'mobile', 'name as role', 'cooperative_id')
-              ->get();
+      $cooperativeId = $request->cooperative_id;
+      $roleName = $request->role_name;
+      $staffs = User::whereHas(
+        'roles', function($q) use ($roleName){
+            $q->where('name', $roleName);
+            }
+            )
+            ->where('cooperative_id', $cooperativeId)
+            ->select('id','firstname', 'lastname', 'username', 'email', 'mobile', 'name as role', 'cooperative_id')
+            ->get();
+
         return response()->json($staffs , 201);
       }
       catch(Exception $e){
