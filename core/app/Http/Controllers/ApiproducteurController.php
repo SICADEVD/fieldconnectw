@@ -68,11 +68,12 @@ class ApiproducteurController extends Controller
       $cooperativeId = $request->cooperative_id;
       $roleName = $request->role_name;
       $staffs = User::whereHas(
-        'roles', function($q) {
-            $q->where('name', 'Delegue');
+        'roles', function($q) use ($roleName){
+            $q->where('name', $roleName);
             }
             )
             ->where('cooperative_id', $cooperativeId)
+            ->select('id','firstname', 'lastname', 'username', 'email', 'mobile')
             ->get();
 
         return response()->json($staffs , 201); 
