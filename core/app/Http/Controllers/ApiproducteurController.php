@@ -73,7 +73,7 @@ class ApiproducteurController extends Controller
             }
             )
             ->where('cooperative_id', $cooperativeId)
-            ->select('id','firstname', 'lastname', 'username', 'email', 'mobile', 'name as role', 'cooperative_id')
+            ->select('id','firstname', 'lastname', 'username', 'email', 'mobile')
             ->get();
 
         return response()->json($staffs , 201); 
