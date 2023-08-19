@@ -64,7 +64,7 @@ class ApiproducteurController extends Controller
       //     $query->whereRaw('LOWER(roles.name) = ?', [strtolower($roleName)]);
       //   })
       //   ->get();
-      try{
+       
       $cooperativeId = $request->cooperative_id;
       $roleName = $request->role_name;
       $staffs = User::whereHas(
@@ -76,11 +76,7 @@ class ApiproducteurController extends Controller
             ->select('id','firstname', 'lastname', 'username', 'email', 'mobile', 'name as role', 'cooperative_id')
             ->get();
 
-        return response()->json($staffs , 201);
-      }
-      catch(Exception $e){
-        return response()->jsone($e);
-      }
+        return response()->json($staffs , 201); 
     }
     /**
      * Show the form for creating a new resource.
