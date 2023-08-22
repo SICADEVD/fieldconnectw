@@ -311,7 +311,7 @@
                     @method('POST')
                     <input type="hidden" name="code">
                     <div class="modal-body">
-                        <p>@lang('Etes-vous sûr de de terminer cette commande?')</p>
+                        <p>@lang('Etes-vous sûr de terminer cette commande?')</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Fermer')</button>

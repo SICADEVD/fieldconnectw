@@ -27,15 +27,18 @@ class FormationController extends Controller
     public function index()
     {
         $pageTitle      = "Gestion des formations";
-        $manager   = auth()->user();
-        $localites = Localite::active()->where('cooperative_id',$manager->cooperative_id)->get();
+        $staff   = auth()->user();
+        $localites = Localite::active()->where('cooperative_id',$staff->cooperative_id)->get();
         $modules = TypeFormation::active()->get();
-        $formations = SuiviFormation::dateFilter()->searchable(['lieu_formation'])->latest('id')->joinRelationship('localite')->where('cooperative_id',$manager->cooperative_id)->where(function ($q) {
+        $formations = SuiviFormation::dateFilter()->searchable(['lieu_formation'])->latest('id')->joinRelationship('localite')->where('cooperative_id',$staff->cooperative_id)->where(function ($q) {
             if(request()->localite != null){
                 $q->where('localite_id',request()->localite);
             }
             if(request()->module != null){
                 $q->where('type_formation_id',request()->module);
+            }
+            if(request()->staff != null){
+                $q->where('user_id',request()->staff->user_id);
             }
         })->with('localite','campagne','typeFormation')->paginate(getPaginate());
          
