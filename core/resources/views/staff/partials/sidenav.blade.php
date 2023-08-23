@@ -82,7 +82,7 @@
                 {{--fin livraison --}}
 
                 {{--Début gestion des livraisons --}}
-                {{-- @if(Auth::user()->can('staff.livraison.manage.sent.list')|| Auth::user()->can('staff.livraison.manage.delivered')) --}}
+                @if(Auth::user()->can('staff.livraison.manage.sent.list'))
                     <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)" class="{{ menuActive('staff.livraison.manage*', 3) }}">
                             <i class="menu-icon las la-sliders-h"></i>
@@ -90,29 +90,35 @@
                         </a>
                         <div class="sidebar-submenu {{ menuActive('staff.livraison.manage*', 2) }} ">
                             <ul>
-                                <li class="sidebar-menu-item {{ menuActive('staff.livraison.manage.sent.list') }}">
-                                    <a href="{{ route('staff.livraison.manage.sent.list') }}" class="nav-link ">
-                                        <i class="menu-icon las la-dot-circle"></i>
-                                        <span class="menu-title">@lang('Total envoyé')</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item {{ menuActive('staff.livraison.manage.delivered') }}">
-                                    <a href="{{ route('staff.livraison.manage.delivered') }}" class="nav-link ">
-                                        <i class="menu-icon las la-dot-circle"></i>
-                                        <span class="menu-title">@lang('Total Livré')</span>
-                                    </a>
-                                </li>
+                                @can('staff.livraison.manage.sent.list')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.manage.sent.list') }}">
+                                        <a href="{{ route('staff.livraison.manage.sent.list') }}" class="nav-link ">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Total envoyé')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.livraison.manage.delivered')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.manage.delivered') }}">
+                                        <a href="{{ route('staff.livraison.manage.delivered') }}" class="nav-link ">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Total Livré')</span>
+                                        </a>
+                                    </li>
+                                @endcan
 
-                                <li class="sidebar-menu-item {{ menuActive('staff.livraison.index') }}">
-                                    <a href="{{ route('staff.livraison.index') }}" class="nav-link ">
-                                        <i class="menu-icon las la-dot-circle"></i>
-                                        <span class="menu-title">@lang('Toutes les livraisons')</span>
-                                    </a>
-                                </li>
+                                @can('staff.livraison.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.index') }}">
+                                        <a href="{{ route('staff.livraison.index') }}" class="nav-link ">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Toutes les livraisons')</span>
+                                        </a>
+                                    </li>       
+                                @endcan
                             </ul>
                         </div>
                     </li>
-                {{-- @endif --}}
+                @endif
                 {{--Fin gestion des livraisons --}}
 
                 {{-- debut gestion de suivis --}}
