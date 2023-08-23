@@ -186,28 +186,34 @@
                 @endif
                 {{--fin gestion de suivis --}}
                 {{-- debut liste des coopératives --}}
-                <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
-                    <a href="{{ route('staff.cooperative.index') }}" class="nav-link ">
-                        <i class="menu-icon las la-university"></i>
-                        <span class="menu-title">@lang('Liste des coopératives')</span>
-                    </a>
-                </li>
+                @if(Auth::user()->can('staff.cooperative.index'))
+                    <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
+                        <a href="{{ route('staff.cooperative.index') }}" class="nav-link ">
+                            <i class="menu-icon las la-university"></i>
+                            <span class="menu-title">@lang('Liste des coopératives')</span>
+                        </a>
+                    </li>
+                @endif
                 {{-- fin liste des coopératives --}}
                 {{-- debut recette  --}}
-                <li class="sidebar-menu-item  {{ menuActive('staff.cash.livraison.income') }}">
-                    <a href="{{ route('staff.cash.livraison.income') }}" class="nav-link">
-                        <i class="menu-icon las la-wallet"></i>
-                        <span class="menu-title">@lang('Recette')</span>
-                    </a>
-                </li>
+                @if(Auth::user()->can('staff.cash.livraison.income'))
+                    <li class="sidebar-menu-item  {{ menuActive('staff.cash.livraison.income') }}">
+                        <a href="{{ route('staff.cash.livraison.income') }}" class="nav-link">
+                            <i class="menu-icon las la-wallet"></i>
+                            <span class="menu-title">@lang('Recette')</span>
+                        </a>
+                    </li>
+                @endif
                 {{-- fin recette --}}
                 {{-- debut ticket --}}
-                <li class="sidebar-menu-item  {{ menuActive('ticket*') }}">
-                    <a href="{{ route('staff.ticket.index') }}" class="nav-link">
-                        <i class="menu-icon las la-ticket-alt"></i>
-                        <span class="menu-title">@lang('Support Ticket')</span>
-                    </a>
-                </li> 
+                @if(Auth::user()->can('staff.ticket.index'))
+                    <li class="sidebar-menu-item  {{ menuActive('ticket*') }}">
+                        <a href="{{ route('staff.ticket.index') }}" class="nav-link">
+                            <i class="menu-icon las la-ticket-alt"></i>
+                            <span class="menu-title">@lang('Support Ticket')</span>
+                        </a>
+                    </li> 
+                @endif
                 {{-- fin ticket --}}
             </ul>
             <div class="text-center mb-3 text-uppercase">
