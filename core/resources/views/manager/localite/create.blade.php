@@ -84,7 +84,7 @@
         </div> 
 
 <div class="form-group row kmEcoleproche">
-    <?php echo Form::label(__("A combien de km se trouve l'école la plus proche ?"), null, ['class' => 'control-label col-xs-12 col-sm-4']); ?> 
+    <?php echo Form::label(__("A combien de km se trouve l'école la plus proche ?"), null, ['class' => 'control-label col-xs-12 col-sm-4 test']); ?> 
     <div class="col-xs-12 col-sm-8">
     <?php echo Form::number('kmEcoleproche',  null, array('placeholder' => __('nombre'),'class' => 'form-control','min'=>'0.1')); ?>
 </div>

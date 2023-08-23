@@ -22,7 +22,7 @@
                     </a>
                 </li>
                {{--livraison --}}
-               @if(Auth::user()->can('staff.livraison.create')|| Auth::user()->can('staff.livraison.store')|| Auth::user()->can('staff.livraison.update')|| Auth::user()->can('staff.livraison.edit')|| Auth::user()->can('staff.livraison.invoice')|| Auth::user()->can('staff.livraison.delivery.list')|| Auth::user()->can('staff.livraison.details')|| Auth::user()->can('staff.livraison.payment')|| Auth::user()->can('staff.livraison.delivery')|| Auth::user()->can('staff.livraison.index')|| Auth::user()->can('staff.livraison.date.search')|| Auth::user()->can('staff.livraison.search'))
+               @if(Auth::user()->can('staff.livraison.index'))
                     <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)" class="{{ menuActive('staff.livraison*', 3) }}">
                             <i class="menu-icon las la-sliders-h"></i>
@@ -30,40 +30,51 @@
                         </a>
                         <div class="sidebar-submenu {{ menuActive('staff.livraison*', 2) }} ">
                             <ul>
-                                <li class="sidebar-menu-item {{ menuActive('staff.livraison.create') }}">
-                        <a href="{{ route('staff.livraison.create') }}" class="nav-link ">
-                            <i class="menu-icon las la-shipping-fast"></i>
-                            <span class="menu-title">@lang("Enregistrement")</span>
-                        </a>
+                                @can('staff.livraison.create')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.create') }}">
+                                
+                                    <a href="{{ route('staff.livraison.create') }}" class="nav-link ">
+                                        <i class="menu-icon las la-shipping-fast"></i>
+                                        <span class="menu-title">@lang("Enregistrement")</span>
+                                    </a>
+                                @endcan
                     </li>
-                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.sent.queue') }}">
-                        <a href="{{ route('staff.livraison.sent.queue') }}" class="nav-link ">
-                            <i class="menu-icon las la-hourglass-start"></i>
-                            <span class="menu-title">@lang("En attente d'expédition")</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.dispatch') }}">
-                        <a href="{{ route('staff.livraison.dispatch') }}" class="nav-link ">
-                            <i class="menu-icon las la-sync"></i>
-                            <span class="menu-title">@lang("Expédiée") </span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.upcoming') }}">
-                        <a href="{{ route('staff.livraison.upcoming') }}" class="nav-link ">
-                            <i class="menu-icon las la-history"></i>
-                            <span class="menu-title">@lang("Encours") @if ($upcomingCount > 0)
-                                    <span class="menu-badge pill bg--danger ms-auto">{{ $upcomingCount }}</span>
-                                @endif
-                            </span>
+                                @can('staff.livraison.sent.queue')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.sent.queue') }}">
+                                        <a href="{{ route('staff.livraison.sent.queue') }}" class="nav-link ">
+                                            <i class="menu-icon las la-hourglass-start"></i>
+                                            <span class="menu-title">@lang("En attente d'expédition")</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.livraison.dispatch')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.dispatch') }}">
+                                        <a href="{{ route('staff.livraison.dispatch') }}" class="nav-link ">
+                                            <i class="menu-icon las la-sync"></i>
+                                            <span class="menu-title">@lang("Expédiée") </span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.livraison.upcoming')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.upcoming') }}">
+                                        <a href="{{ route('staff.livraison.upcoming') }}" class="nav-link ">
+                                            <i class="menu-icon las la-history"></i>
+                                            <span class="menu-title">@lang("Encours") @if ($upcomingCount > 0)
+                                                    <span class="menu-badge pill bg--danger ms-auto">{{ $upcomingCount }}</span>
+                                                @endif
+                                            </span>
 
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.delivery.queue') }}">
-                        <a href="{{ route('staff.livraison.delivery.queue') }}" class="nav-link ">
-                            <i class="menu-icon lab la-accessible-icon"></i>
-                            <span class="menu-title">@lang("En attente de reception")</span>
-                        </a>
-                    </li>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.livraison.delivery.queue')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.livraison.delivery.queue') }}">
+                                        <a href="{{ route('staff.livraison.delivery.queue') }}" class="nav-link ">
+                                            <i class="menu-icon lab la-accessible-icon"></i>
+                                            <span class="menu-title">@lang("En attente de reception")</span>
+                                        </a>
+                                    </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>
@@ -71,7 +82,7 @@
                 {{--fin livraison --}}
 
                 {{--Début gestion des livraisons --}}
-                @if(Auth::user()->can('staff.livraison.manage.sent.list')|| Auth::user()->can('staff.livraison.manage.delivered'))
+                {{-- @if(Auth::user()->can('staff.livraison.manage.sent.list')|| Auth::user()->can('staff.livraison.manage.delivered')) --}}
                     <li class="sidebar-menu-item sidebar-dropdown">
                         <a href="javascript:void(0)" class="{{ menuActive('staff.livraison.manage*', 3) }}">
                             <i class="menu-icon las la-sliders-h"></i>
@@ -101,7 +112,7 @@
                             </ul>
                         </div>
                     </li>
-                @endif
+                {{-- @endif --}}
                 {{--Fin gestion des livraisons --}}
 
                 {{-- debut gestion de suivis --}}
@@ -156,8 +167,6 @@
                         </ul>
                     </div>
                 </li>
-
-
                 {{--fin gestion de suivis --}}
                 {{-- debut liste des coopératives --}}
                 <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
