@@ -122,57 +122,68 @@
                 {{--Fin gestion des livraisons --}}
 
                 {{-- debut gestion de suivis --}}
+                @if(Auth::user()->can('staff.suivi.menage.index') || Auth::user()->can('staff.suivi.formation.index') || Auth::user()->can('staff.suivi.inspection.index') || Auth::user()->can('staff.suivi.application.index') || Auth::user()->can('staff.suivi.ssrteclmrs.index') || Auth::user()->can('staff.suivi.parcelles.index'))
+                    <li class="sidebar-menu-item sidebar-dropdown">
+                        <a href="javascript:void(0)" class="{{ menuActive('staff.suivi*', 3) }}">
+                            <i class="menu-icon las la-users"></i>
+                            <span class="menu-title">@lang('Gestion de suivis') </span>
+                        </a>
+                        <div class="sidebar-submenu {{ menuActive('staff.suivi*', 2) }} ">
+                            <ul>
+                                @can('staff.suivi.menage.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.menage.index') }}">
+                                        <a href="{{ route('staff.suivi.menage.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Menages')</span>
+                                        </a>
+                                    </li>
+                                @endcan
 
-                <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="{{ menuActive('staff.suivi*', 3) }}">
-                        <i class="menu-icon las la-users"></i>
-                        <span class="menu-title">@lang('Gestion de suivis') </span>
-                    </a>
-                    <div class="sidebar-submenu {{ menuActive('staff.suivi*', 2) }} ">
-                        <ul>
- 
-                           <li class="sidebar-menu-item {{ menuActive('staff.suivi.menage.index') }}">
-                                <a href="{{ route('staff.suivi.menage.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Menages')</span>
-                                </a>
-                            </li>
-
-							<li class="sidebar-menu-item {{ menuActive('staff.suivi.parcelles.index') }}">
-                                <a href="{{ route('staff.suivi.parcelles.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Parcelles')</span>
-                                </a>
-                            </li>
-							
-                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.formation.index') }}">
-                                <a href="{{ route('staff.suivi.formation.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Formations')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.inspection.index') }}">
-                                <a href="{{ route('staff.suivi.inspection.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Inspections')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.application.index') }}">
-                                <a href="{{ route('staff.suivi.application.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Applications')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.ssrteclmrs.index') }}">
-                                <a href="{{ route('staff.suivi.ssrteclmrs.index') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('SSRTE-CLMRS')</span>
-                                </a>
-                            </li> 
-							 
-                        </ul>
-                    </div>
-                </li>
+                                @can('staff.suivi.parcelles.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.parcelles.index') }}">
+                                        <a href="{{ route('staff.suivi.parcelles.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Parcelles')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.suivi.formation.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.formation.index') }}">
+                                        <a href="{{ route('staff.suivi.formation.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Formations')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.suivi.inspection.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.inspection.index') }}">
+                                        <a href="{{ route('staff.suivi.inspection.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Inspections')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.suivi.application.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.application.index') }}">
+                                        <a href="{{ route('staff.suivi.application.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Applications')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.suivi.ssrteclmrs.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.suivi.ssrteclmrs.index') }}">
+                                        <a href="{{ route('staff.suivi.ssrteclmrs.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('SSRTE-CLMRS')</span>
+                                        </a>
+                                    </li> 
+                                @endcan
+                                
+                            </ul>
+                        </div>
+                    </li>
+                @endif
                 {{--fin gestion de suivis --}}
                 {{-- debut liste des coopératives --}}
                 <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
