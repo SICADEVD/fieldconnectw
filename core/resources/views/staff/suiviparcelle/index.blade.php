@@ -74,21 +74,26 @@
                                                     class="las la-ellipsis-v"></i>@lang('Action')
                                              </button>
                                             <div class="dropdown-menu p-0">
-                                                <a href="{{ route('staff.suivi.parcelles.edit', $suiviparcelle->id) }}"
-                                                    class="dropdown-item"><i class="la la-pen"></i>@lang('Edit')</a> 
+                                                @can('staff.suivi.parcelles.edit')
+                                                    <a href="{{ route('staff.suivi.parcelles.edit', $suiviparcelle->id) }}"
+                                                        class="dropdown-item"><i class="la la-pen"></i>@lang('Edit')
+                                                    </a>
+                                                @endcan 
+                                                @can('staff.suivi.parcelles.status')
                                                     @if ($suiviparcelle->status == Status::DISABLE)
-                                                    <button type="button" class="confirmationBtn  dropdown-item"
-                                                        data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
-                                                        data-question="@lang('Are you sure to enable this suivi parcelle?')">
-                                                        <i class="la la-eye"></i> @lang('Activé')
-                                                    </button>
-                                                @else
-                                                    <button type="button" class="confirmationBtn dropdown-item"
-                                                        data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
-                                                        data-question="@lang('Are you sure to disable this suivi parcelle?')">
-                                                        <i class="la la-eye-slash"></i> @lang('Désactivé')
-                                                    </button>
-                                                @endif 
+                                                        <button type="button" class="confirmationBtn  dropdown-item"
+                                                            data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
+                                                            data-question="@lang('Are you sure to enable this suivi parcelle?')">
+                                                            <i class="la la-eye"></i> @lang('Activé')
+                                                        </button>
+                                                    @else
+                                                        <button type="button" class="confirmationBtn dropdown-item"
+                                                            data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
+                                                            data-question="@lang('Are you sure to disable this suivi parcelle?')">
+                                                            <i class="la la-eye-slash"></i> @lang('Désactivé')
+                                                        </button>
+                                                    @endif 
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
@@ -114,11 +119,16 @@
 @endsection
 
 @push('breadcrumb-plugins')
- 
-    <a href="{{ route('staff.suivi.parcelles.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
-        <i class="las la-plus"></i>@lang("Ajouter nouveau")
-    </a>
-    <a href="{{ route('staff.suivi.parcelles.exportExcel.suiviParcelleAll') }}" class="btn  btn-outline--warning h-45"><i class="las la-cloud-download-alt"></i> Exporter en Excel</a>
+    @can('staff.suivi.parcelles.create')
+        <a href="{{ route('staff.suivi.parcelles.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
+            <i class="las la-plus"></i>@lang("Ajouter nouveau")
+        </a>    
+    @endcan
+    @can('staff.suivi.parcelles.exportExcel.suiviParcelleAll')
+        <a href="{{ route('staff.suivi.parcelles.exportExcel.suiviParcelleAll') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
+            <i class="las la-file-excel"></i>@lang("Exporter Excel")
+        </a>
+    @endcan
 @endpush
 @push('style')
     <style>
