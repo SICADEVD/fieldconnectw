@@ -1,4 +1,5 @@
 @extends('staff.layouts.app')
+
 @section('panel')
     <div class="row">
         <div class="col-lg-12">
@@ -6,7 +7,7 @@
                 <div class="card-body">
                     <form action="">
                         <div class="d-flex flex-wrap gap-4">
-                            <input type="hidden" name="table" value="suivi_formaions"/>
+                            <input type="hidden" name="table" value="suivi_parcelles"/>
                             <div class="flex-grow-1">
                                 <label>@lang('Recherche par Mot(s) clé(s)')</label>
                                 <input type="text" name="search" value="{{ request()->search }}" class="form-control">
@@ -20,15 +21,6 @@
                                     @endforeach 
                                 </select>
                             </div> 
-                            <div class="flex-grow-1">
-                                <label>@lang('Localité')</label>
-                                <select name="module" class="form-control">
-                                    <option value="">@lang('Tous')</option>
-                                    @foreach($modules as $module)
-                                    <option value="{{ $module->id }}">{{ $module->nom }}</option>
-                                    @endforeach 
-                                </select>
-                            </div>
                             <div class="flex-grow-1">
                                 <label>@lang('Date')</label>
                                 <input name="date" type="text" class="date form-control" placeholder="@lang('Date de début - Date de fin')" autocomplete="off" value="{{ request()->date }}">
@@ -46,64 +38,57 @@
                         <table class="table table--light style--two">
                             <thead>
                                 <tr> 
-                                    <th>@lang('Localite')</th>
-                                    <th>@lang('Formateur')</th>
-                                    <th>@lang('Module')</th>
-                                    <th>@lang('Lieu')</th>
-                                    <th>@lang('Date formation')</th> 
-                                    <th>@lang('Ajoutée le')</th>
+                                    <th>@lang('Localite')</th> 
+                                    <th>@lang('Producteur')</th>
+                                    <th>@lang('Code Parcelle')</th>
+                                    <th>@lang('Date de visite')</th> 
                                     <th>@lang('Status')</th>
                                     <th>@lang('Action')</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($formations as $formation)
+                                @forelse($suiviparcelles as $suiviparcelle)
                                     <tr>
                                         <td>
-                                            <span class="fw-bold">{{ $formation->localite->nom }}</span>
+                                            <span class="fw-bold">{{ $suiviparcelle->parcelle->producteur->localite->nom }}</span>
+                                        </td>
+                                        <td> 
+                                            <span class="small">
+                                            {{ $suiviparcelle->parcelle->producteur->nom }} {{ $suiviparcelle->parcelle->producteur->prenoms }}
+                                            </span>
                                         </td>
                                         <td>
-                                            <span> <a href="{{ route('staff.suivi.formation.edit', $formation->id) }}">
-                                                    <span>@</span>{{ $formation->user->lastname }} {{ $formation->user->firstname }}
+                                            <span> <a href="{{ route('staff.suivi.parcelles.edit', $suiviparcelle->id) }}">
+                                                    <span>@</span>{{ $suiviparcelle->parcelle->codeParc }}
                                                 </a></span>
-                                        </td> 
-                                        <td>
-                                            <span>{{ $formation->typeFormation->nom }}</span>
                                         </td>
+                                         
                                         <td>
-                                            <span>{{ $formation->lieu_formation }}</span>
-                                        </td> 
-                                        <td>
-                                            <span class="d-block">{{ showDateTime($formation->date_formation) }}</span>
-                                            <span>{{ diffForHumans($formation->date_formation) }}</span>
+                                            <span class="d-block">{{ showDateTime($suiviparcelle->dateVisite) }}</span>
+                                            <span>{{ diffForHumans($suiviparcelle->dateVisite) }}</span>
                                         </td>
-                                        <td>
-                                            <span class="d-block">{{ showDateTime($formation->created_at) }}</span>
-                                            <span>{{ diffForHumans($formation->created_at) }}</span>
-                                        </td>
-                                        <td> @php echo $formation->statusBadge; @endphp </td>
+                                        <td> @php echo $suiviparcelle->statusSuiviParc; @endphp </td>
                                         <td>
                                          
                                             <button type="button" class="btn btn-sm btn-outline--primary" data-bs-toggle="dropdown" aria-expanded="false"><i
                                                     class="las la-ellipsis-v"></i>@lang('Action')
                                              </button>
                                             <div class="dropdown-menu p-0">
-                                                <a href="{{ route('staff.suivi.formation.edit', $formation->id) }}"
+                                                <a href="{{ route('staff.suivi.parcelles.edit', $suiviparcelle->id) }}"
                                                     class="dropdown-item"><i class="la la-pen"></i>@lang('Edit')</a> 
-                                                @if ($formation->status == Status::DISABLE)
+                                                    @if ($suiviparcelle->status == Status::DISABLE)
                                                     <button type="button" class="confirmationBtn  dropdown-item"
-                                                        data-action="{{ route('staff.suivi.formation.status', $formation->id) }}"
-                                                        data-question="@lang('Are you sure to enable this formation?')">
+                                                        data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
+                                                        data-question="@lang('Are you sure to enable this suivi parcelle?')">
                                                         <i class="la la-eye"></i> @lang('Activé')
                                                     </button>
                                                 @else
                                                     <button type="button" class="confirmationBtn dropdown-item"
-                                                        data-action="{{ route('staff.suivi.formation.status', $formation->id) }}"
-                                                        data-question="@lang('Are you sure to disable this formation?')">
+                                                        data-action="{{ route('staff.suivi.parcelles.status', $suiviparcelle->id) }}"
+                                                        data-question="@lang('Are you sure to disable this suivi parcelle?')">
                                                         <i class="la la-eye-slash"></i> @lang('Désactivé')
                                                     </button>
                                                 @endif 
-                                                
                                             </div>
                                         </td>
                                     </tr>
@@ -117,9 +102,9 @@
                         </table>
                     </div>
                 </div>
-                @if ($formations->hasPages())
+                @if ($suiviparcelles->hasPages())
                     <div class="card-footer py-4">
-                        {{ paginateLinks($formations) }}
+                        {{ paginateLinks($suiviparcelles) }}
                     </div>
                 @endif
             </div>
@@ -127,10 +112,48 @@
     </div>
     <x-confirmation-modal />
 @endsection
+
 @push('breadcrumb-plugins')
-    <x-search-form placeholder="Search here..." />
-    <a href="{{ route('staff.suivi.formation.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
+ 
+    <a href="{{ route('staff.suivi.parcelles.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
         <i class="las la-plus"></i>@lang("Ajouter nouveau")
     </a>
-    <a href="{{ route('staff.suivi.formation.exportExcel.formationAll') }}" class="btn  btn-outline--warning h-45"><i class="las la-cloud-download-alt"></i> Exporter en Excel</a>
+    <a href="{{ route('staff.suivi.parcelles.exportExcel.suiviParcelleAll') }}" class="btn  btn-outline--warning h-45"><i class="las la-cloud-download-alt"></i> Exporter en Excel</a>
+@endpush
+@push('style')
+    <style>
+        .table-responsive {
+            overflow-x: auto;
+        }
+    </style>
+@endpush
+@push('style-lib')
+    <link rel="stylesheet" href="{{ asset('assets/fcadmin/css/vendor/datepicker.min.css') }}">
+@endpush
+@push('script-lib')
+    <script src="{{ asset('assets/fcadmin/js/vendor/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/fcadmin/js/vendor/datepicker.en.js') }}"></script>
+@endpush
+@push('script')
+    <script>
+        (function($) {
+            "use strict";
+
+            $('.date').datepicker({
+                maxDate:new Date(),
+                range:true,
+                multipleDatesSeparator:"-",
+                language:'en'
+            });
+
+            let url=new URL(window.location).searchParams;
+            if(url.get('localite') != undefined && url.get('localite') != ''){
+                $('select[name=localite]').find(`option[value=${url.get('localite')}]`).attr('selected',true);
+            }
+            if(url.get('payment_status') != undefined && url.get('payment_status') != ''){
+                $('select[name=payment_status]').find(`option[value=${url.get('payment_status')}]`).attr('selected',true);
+            }
+
+        })(jQuery)
+    </script>
 @endpush

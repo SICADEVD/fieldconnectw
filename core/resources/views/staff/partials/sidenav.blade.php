@@ -104,54 +104,85 @@
                 @endif
                 {{--Fin gestion des livraisons --}}
 
-                {{-- Début Suivi formation --}}
-                @if(Auth::user()->can('staff.suivi.formation.index')|| Auth::user()->can('staff.suivi.formation.create') || Auth::user()->can('staff.suivi.formation.edit') || Auth::user()->can('staff.suivi.formation.status'))
+                {{-- debut gestion de suivis --}}
 
-                    <li class="sidebar-menu-item  {{ menuActive('staff.suivi.formation.index') }}">
-                        <a href="{{ route('staff.suivi.formation.index') }}" class="nav-link">
-                            <i class="menu-icon las la-sliders-h"></i>
-                            <span class="menu-title">@lang('Suivi Formation')</span>
-                        </a>
-                    </li>
-                @endif
-                
-                {{-- Fin Suivi formation --}}
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="{{ menuActive('staff.suivi*', 3) }}">
+                        <i class="menu-icon las la-users"></i>
+                        <span class="menu-title">@lang('Gestion de suivis') </span>
+                    </a>
+                    <div class="sidebar-submenu {{ menuActive('staff.suivi*', 2) }} ">
+                        <ul>
+ 
+                           <li class="sidebar-menu-item {{ menuActive('staff.suivi.menage.index') }}">
+                                <a href="{{ route('staff.suivi.menage.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Menages')</span>
+                                </a>
+                            </li>
 
-                {{-- debut ssrte --}}
+							<li class="sidebar-menu-item {{ menuActive('staff.suivi.parcelles.index') }}">
+                                <a href="{{ route('staff.suivi.parcelles.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Parcelles')</span>
+                                </a>
+                            </li>
+							
+                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.formation.index') }}">
+                                <a href="{{ route('staff.suivi.formation.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Formations')</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.inspection.index') }}">
+                                <a href="{{ route('staff.suivi.inspection.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Inspections')</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.application.index') }}">
+                                <a href="{{ route('staff.suivi.application.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Applications')</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{ menuActive('staff.suivi.ssrteclmrs.index') }}">
+                                <a href="{{ route('staff.suivi.ssrteclmrs.index') }}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('SSRTE-CLMRS')</span>
+                                </a>
+                            </li> 
+							 
+                        </ul>
+                    </div>
+                </li>
 
-                {{-- fin ssrte --}}
 
-                {{-- debut suivi parcelle --}}
-
-                {{-- debut application --}}
-                    @if(Auth::user()->can('staff.suivi.application.index')|| Auth::user()->can('staff.suivi.application.create') || Auth::user()->can('staff.suivi.application.edit') || Auth::user()->can('staff.suivi.application.status'))
-                        <li class="sidebar-menu-item  {{ menuActive('staff.suivi.application.index') }}">
-                            <a href="{{ route('staff.suivi.application.index') }}" class="nav-link">
-                                <i class="menu-icon las la-sliders-h"></i>
-                                <span class="menu-title">@lang('Suivi Application')</span>
-                            </a>
-                        </li>
-                    @endif
-                {{-- fin application --}}
+                {{--fin gestion de suivis --}}
+                {{-- debut liste des coopératives --}}
                 <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
                     <a href="{{ route('staff.cooperative.index') }}" class="nav-link ">
                         <i class="menu-icon las la-university"></i>
                         <span class="menu-title">@lang('Liste des coopératives')</span>
                     </a>
                 </li>
-                {{-- <li class="sidebar-menu-item  {{ menuActive('staff.cash.livraison.income') }}">
+                {{-- fin liste des coopératives --}}
+                {{-- debut recette  --}}
+                <li class="sidebar-menu-item  {{ menuActive('staff.cash.livraison.income') }}">
                     <a href="{{ route('staff.cash.livraison.income') }}" class="nav-link">
                         <i class="menu-icon las la-wallet"></i>
                         <span class="menu-title">@lang('Recette')</span>
                     </a>
-                </li> --}}
-                {{-- <li class="sidebar-menu-item  {{ menuActive('ticket*') }}">
+                </li>
+                {{-- fin recette --}}
+                {{-- debut ticket --}}
+                <li class="sidebar-menu-item  {{ menuActive('ticket*') }}">
                     <a href="{{ route('staff.ticket.index') }}" class="nav-link">
                         <i class="menu-icon las la-ticket-alt"></i>
                         <span class="menu-title">@lang('Support Ticket')</span>
                     </a>
-                </li> --}}
-
+                </li> 
+                {{-- fin ticket --}}
             </ul>
             <div class="text-center mb-3 text-uppercase">
                 <span class="text--primary">{{ __(systemDetails()['name']) }}</span>

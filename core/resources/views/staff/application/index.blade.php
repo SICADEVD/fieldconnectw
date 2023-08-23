@@ -57,7 +57,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span> <a href="{{ route('manager.suivi.application.edit', $application->id) }}">
+                                            <span> <a href="{{ route('staff.suivi.application.edit', $application->id) }}">
                                                     <span>@</span>{{ $application->parcelle->codeParc }}
                                                 </a></span>
                                         </td> 
@@ -72,17 +72,17 @@
                                                     class="las la-ellipsis-v"></i>@lang('Action')
                                              </button>
                                             <div class="dropdown-menu p-0">
-                                                <a href="{{ route('manager.suivi.application.edit', $application->id) }}"
+                                                <a href="{{ route('staff.suivi.application.edit', $application->id) }}"
                                                     class="dropdown-item"><i class="la la-pen"></i>@lang('Edit')</a> 
                                                 @if ($application->status == Status::DISABLE)
                                                     <button type="button" class="confirmationBtn  dropdown-item"
-                                                        data-action="{{ route('manager.suivi.application.status', $application->id) }}"
+                                                        data-action="{{ route('staff.suivi.application.status', $application->id) }}"
                                                         data-question="@lang('Are you sure to enable this application?')">
                                                         <i class="la la-eye"></i> @lang('Activé')
                                                     </button>
                                                 @else
                                                     <button type="button" class="confirmationBtn dropdown-item"
-                                                        data-action="{{ route('manager.suivi.application.status', $application->id) }}"
+                                                        data-action="{{ route('staff.suivi.application.status', $application->id) }}"
                                                         data-question="@lang('Are you sure to disable this application?')">
                                                         <i class="la la-eye-slash"></i> @lang('Désactivé')
                                                     </button>
@@ -114,10 +114,10 @@
 
 @push('breadcrumb-plugins')
     
-    <a href="{{ route('manager.suivi.application.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
+    <a href="{{ route('staff.suivi.application.create') }}" class="btn  btn-outline--primary h-45 addNewCooperative">
         <i class="las la-plus"></i>@lang("Ajouter nouveau")
     </a>
-    <a href="{{ route('manager.suivi.application.exportExcel.applicationAll') }}" class="btn  btn-outline--warning h-45"><i class="las la-cloud-download-alt"></i> Exporter en Excel</a>
+    <a href="{{ route('staff.suivi.application.exportExcel.applicationAll') }}" class="btn  btn-outline--warning h-45"><i class="las la-cloud-download-alt"></i> Exporter en Excel</a>
 @endpush
 
 @push('style')
