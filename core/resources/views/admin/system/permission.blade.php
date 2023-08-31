@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('admin.layouts.app')
 @section('panel')
     <div class="row justify-content-center">
         <div class="col-xl-8">
@@ -9,7 +9,7 @@
                     </ul>
                 </div>
                 <div class="py-2 px-3">
-                    <a href="{{ route('manager.system.permission.routes') }}" class="btn btn--primary w-100 h-45">@lang('Cliquer pour créer les permissions de routes')</a>
+                    <a href="{{ route('admin.system.permission.routes') }}" class="btn btn--primary w-100 h-45">@lang('Cliquer pour créer les permissions de routes')</a>
                 </div>
             </div>
         </div>

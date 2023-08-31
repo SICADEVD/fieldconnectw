@@ -19,9 +19,20 @@ class SystemController extends Controller
         return view('admin.system.optimize',compact('pageTitle'));
     }
 
+    public function permission(){
+        $pageTitle = 'Création des permissions de routes';
+        return view('admin.system.permission',compact('pageTitle'));
+    }
+
     public function optimizeClear(){
         Artisan::call('optimize:clear');
         $notify[] = ['success','Cache cleared successfully'];
+        return back()->withNotify($notify);
+    }
+
+    public function permissionRoutes(){
+        Artisan::call('permission:create-permission-routes');
+        $notify[] = ['success','Les permissions des routes ont été créees'];
         return back()->withNotify($notify);
     }
 

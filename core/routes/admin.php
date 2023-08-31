@@ -262,4 +262,16 @@ Route::middleware('admin')->group(function () {
             Route::post('manage-section/{id}', 'manageSectionUpdate')->name('manage.section.update');
         });
     });
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+
+    Route::controller('App\Http\Controllers\Admin\SystemController')->name('system.')->prefix('system')->group(function () {
+        Route::get('info', 'systemInfo')->name('info');
+        Route::get('server-info', 'systemServerInfo')->name('server.info');
+        Route::get('optimize', 'optimize')->name('optimize');
+        Route::get('permission', 'permission')->name('permission');
+        Route::get('optimize-clear', 'optimizeClear')->name('optimize.clear');
+            Route::get('permission-routes', 'permissionRoutes')->name('permission.routes');
+        });
 });

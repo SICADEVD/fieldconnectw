@@ -16,6 +16,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-menu-item {{ menuActive('admin.roles.index') }}">
+                    <a href="{{ route('admin.roles.index') }}" class="nav-link ">
+                        <i class="menu-icon las la-university"></i>
+                        <span class="menu-title">@lang('Gestion des Roles')</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-item {{ menuActive('admin.all') }}">
                     <a href="{{ route('admin.all') }}" class="nav-link ">
                         <i class="menu-icon las la-users"></i>

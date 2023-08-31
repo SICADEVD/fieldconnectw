@@ -13,53 +13,8 @@
                         <span class="menu-title">@lang("Tableau de bord")</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="{{ menuActive('system*', 3) }}">
-                        <i class="menu-icon la la-server"></i>
-                        <span class="menu-title">@lang('System')</span>
-                    </a>
-                    <div class="sidebar-submenu {{ menuActive('system*', 2) }} ">
-                        <ul>
-                            <li class="sidebar-menu-item {{ menuActive('manager.system.info') }} ">
-                                <a href="{{ route('manager.system.info') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Application')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('manager.system.server.info') }} ">
-                                <a href="{{ route('manager.system.server.info') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Server')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('manager.system.optimize') }} ">
-                                <a href="{{ route('manager.system.optimize') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Cache')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('manager.system.permission') }} ">
-                                <a href="{{ route('manager.system.permission') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Permission de routes')</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="sidebar-menu-item {{ menuActive('manager.roles.index') }}">
-                    <a href="{{ route('manager.roles.index') }}" class="nav-link ">
-                        <i class="menu-icon las la-university"></i>
-                        <span class="menu-title">@lang('Gestion des Roles')</span>
-                    </a>
-                </li>
+               
                 
-                <li class="sidebar-menu-item {{ menuActive('manager.permissions.index') }}">
-                    <a href="{{ route('manager.permissions.index') }}" class="nav-link ">
-                        <i class="menu-icon las la-university"></i>
-                        <span class="menu-title">@lang('Gestion des Permissions')</span>
-                    </a>
-                </li>
                 <li class="sidebar-menu-item {{ menuActive('manager.cooperative.index') }}">
                     <a href="{{ route('manager.cooperative.index') }}" class="nav-link ">
                         <i class="menu-icon las la-university"></i>
