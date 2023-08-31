@@ -71,7 +71,7 @@ class PermissionController extends Controller
       
         $pageTitle = "Mise à jour de la permission";
         $permission = Permission::where('id',$id)->firstOrFail();
-        return view('manager.permission.edit', compact('pageTitle', 'permission'));
+        return view('admin.permission.edit', compact('pageTitle', 'permission'));
     }
 
     /**
