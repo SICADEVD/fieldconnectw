@@ -185,6 +185,52 @@
                     </li>
                 @endif
                 {{--fin gestion de suivis --}}
+                {{-- Début Gestion de la Traçabilites --}}
+                 @if(Auth::user()->can('staff.traca.producteur.index') || Auth::user()->can('staff.traca.parcelle.index') || Auth::user()->can('staff.traca.estimation.index'))
+                    <li class="sidebar-menu-item sidebar-dropdown">
+                        <a href="javascript:void(0)" class="{{ menuActive('staff.traca.*', 3) }}">
+                            <i class="menu-icon las la-users"></i>
+                            <span class="menu-title">@lang('Gestion de la Traçabilites') </span>
+                        </a>
+                        <div class="sidebar-submenu {{ menuActive('staff.traca.*', 2) }} ">
+                            <ul>
+                              @can('staff.traca.producteur.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.traca.producteur.index') }}">
+                                        <a href="{{ route('staff.traca.producteur.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Producteurs')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.traca.parcelle.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.traca.parcelle.index') }}">
+                                        <a href="{{ route('staff.traca.parcelle.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Parcelles')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('staff.traca.estimation.index')
+                                    <li class="sidebar-menu-item {{ menuActive('staff.traca.estimation.index') }}">
+                                        <a href="{{ route('staff.traca.estimation.index') }}" class="nav-link">
+                                            <i class="menu-icon las la-dot-circle"></i>
+                                            <span class="menu-title">@lang('Estimations')</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                {{-- <li class="sidebar-menu-item {{ menuActive('staff.livraison.deliveryInQueue') }}">
+                                    <a href="{{ route('staff.livraison.deliveryInQueue') }}" class="nav-link">
+                                        <i class="menu-icon las la-dot-circle"></i>
+                                        <span class="menu-title">@lang('Livraison')</span>
+                                    </a>
+                                </li>  --}}
+
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+                {{-- Fin Gestion de la Traçabilites --}}
+
                 {{-- debut liste des coopératives --}}
                 @if(Auth::user()->can('staff.cooperative.index'))
                     <li class="sidebar-menu-item {{ menuActive('staff.cooperative.index') }}">
@@ -221,6 +267,9 @@
                 <span class="text--success">@lang('V'){{ systemDetails()['version'] }} </span>
             </div>
         </div>
+
+        
+        
         <div class="sidebar__menu-wrapper" id="sidebar__menuWrapper">
             <div class="text-center mb-3 text-uppercase">
                 <span class="text--primary">{{ __(systemDetails()['name']) }}</span>
