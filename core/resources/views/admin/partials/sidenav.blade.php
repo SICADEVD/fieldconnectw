@@ -23,15 +23,6 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item {{ menuActive('admin.permissions.index') }}">
-                    <a href="{{ route('admin.permissions.index') }}" class="nav-link ">
-                        <i class="menu-icon las la-university"></i>
-                        <span class="menu-title">@lang('Gestion des Permissions')</span>
-                    </a>
-                </li>
-
-                
-
                 <li class="sidebar-menu-item {{ menuActive('admin.all') }}">
                     <a href="{{ route('admin.all') }}" class="nav-link ">
                         <i class="menu-icon las la-users"></i>
