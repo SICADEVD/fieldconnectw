@@ -30,40 +30,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item sidebar-dropdown">
-                    <a href="javascript:void(0)" class="{{ menuActive('system*', 3) }}">
-                        <i class="menu-icon la la-server"></i>
-                        <span class="menu-title">@lang('System')</span>
-                    </a>
-                    <div class="sidebar-submenu {{ menuActive('system*', 2) }} ">
-                        <ul>
-                            <li class="sidebar-menu-item {{ menuActive('admin.system.info') }} ">
-                                <a href="{{ route('admin.system.info') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Application')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('admin.system.server.info') }} ">
-                                <a href="{{ route('admin.system.server.info') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Server')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('admin.system.optimize') }} ">
-                                <a href="{{ route('admin.system.optimize') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Cache')</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item {{ menuActive('admin.system.permission') }} ">
-                                <a href="{{ route('admin.system.permission') }}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Permission de routes')</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                
 
                 <li class="sidebar-menu-item {{ menuActive('admin.all') }}">
                     <a href="{{ route('admin.all') }}" class="nav-link ">
@@ -88,10 +55,10 @@
                                 </a>
                             </li>
 
-                            <li class="sidebar-menu-item {{ menuActive('admin.cooperative.admin*') }}">
-                                <a href="{{ route('admin.cooperative.admin.index') }}" class="nav-link">
+                            <li class="sidebar-menu-item {{ menuActive('admin.cooperative.manager*') }}">
+                                <a href="{{ route('admin.cooperative.manager.index') }}" class="nav-link">
                                     <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Gestion des admins')</span>
+                                    <span class="menu-title">@lang('Gestion des Managers')</span>
                                 </a>
                             </li>
 
@@ -298,7 +265,7 @@
                 <li class="sidebar-menu-item {{ menuActive('admin.seo') }}">
                     <a href="{{ route('admin.seo') }}" class="nav-link">
                         <i class="menu-icon las la-globe"></i>
-                        <span class="menu-title">@lang('SEO admin')</span>
+                        <span class="menu-title">@lang('SEO Manager')</span>
                     </a>
                 </li>
                 <li class="sidebar-menu-item sidebar-dropdown">
