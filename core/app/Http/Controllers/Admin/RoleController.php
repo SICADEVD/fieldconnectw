@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('id','DESC')->paginate(getPaginate());
         $pageTitle = "Gestion des rôles"; 
-        return view('manager.role.index', compact('pageTitle', 'roles'));
+        return view('admin.role.index', compact('pageTitle', 'roles'));
     }
 
     /**
@@ -31,7 +31,7 @@ class RoleController extends Controller
         $pageTitle = "Ajouter un rôle";
         $permissions = Permission::get();
        
-        return view('manager.role.create', compact('pageTitle','permissions'));
+        return view('admin.role.create', compact('pageTitle','permissions'));
     }
 
     /**
@@ -64,7 +64,7 @@ class RoleController extends Controller
         $pageTitle = "Rôle ".$role->name;
         $role = $role;
         $rolePermissions = $role->permissions;
-        return view('manager.role.show', compact('role', 'rolePermissions','pageTitle'));
+        return view('admin.role.show', compact('role', 'rolePermissions','pageTitle'));
         
     }
 
@@ -81,7 +81,7 @@ class RoleController extends Controller
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
     
-        return view('manager.role.edit', compact('role', 'rolePermissions', 'permissions','pageTitle'));
+        return view('admin.role.edit', compact('role', 'rolePermissions', 'permissions','pageTitle'));
     }
 
     /**
@@ -116,6 +116,6 @@ class RoleController extends Controller
     {
         $role->delete();
         $notify[] = ['success', 'Rôle supprimé avec succès'];
-        return redirect()->route('manager.roles.index')->withNotify($notify);
+        return redirect()->route('admin.roles.index')->withNotify($notify);
     }
 }
