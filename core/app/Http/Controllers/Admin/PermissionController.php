@@ -18,7 +18,7 @@ class PermissionController extends Controller
     {
         $pageTitle = "Gestion des permissions"; 
         $permissions = Permission::orderBy('id','DESC')->paginate(getPaginate());
-        return view('manager.permission.index',compact('pageTitle', 'permissions'));
+        return view('admin.permission.index',compact('pageTitle', 'permissions'));
     }
 
     /**
@@ -29,7 +29,7 @@ class PermissionController extends Controller
     public function create()
     {
         $pageTitle = "Ajouter une permission";    
-        return view('manager.permission.create',compact('pageTitle'));
+        return view('admin.permission.create',compact('pageTitle'));
     }
 
     /**

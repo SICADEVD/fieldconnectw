@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('admin.layouts.app')
 @section('panel')
 <div class="row">
     <div class="col-lg-12">
@@ -25,7 +25,7 @@
                                 
                                     <td>
                                    
-                                        <a href="{{ route('manager.permissions.edit',$permission->id) }}"
+                                        <a href="{{ route('admin.permissions.edit',$permission->id) }}"
                                             class="btn btn-sm btn-outline--primary"><i
                                                 class="las la-pen"></i>@lang('Edit')
                                         </a>
@@ -52,7 +52,7 @@
 @endsection
 @push('breadcrumb-plugins')
     <x-search-form placeholder="Search here..." />
-    <a href="{{route('manager.permissions.create')}}" class="btn  btn-outline--primary h-45 addNewRole">
+    <a href="{{route('admin.permissions.create')}}" class="btn  btn-outline--primary h-45 addNewRole">
         <i class="las la-plus"></i>@lang("Ajouter nouveau")
     </a>
     <i></i>
