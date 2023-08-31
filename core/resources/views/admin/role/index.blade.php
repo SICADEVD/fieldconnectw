@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('admin.layouts.app')
 @section('panel')
 <div class="row">
     <div class="col-lg-12">
@@ -16,9 +16,9 @@
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-outline--info" href="{{ route('manager.roles.show', $role->id) }}">Voir</a>
-                                    <a class="btn btn-sm btn-outline--primary" href="{{ route('manager.roles.edit', $role->id) }}">Modifier</a>
-                                    {!! Form::open(['method' => 'DELETE','route' => ['manager.roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                    <a class="btn btn-sm btn-outline--info" href="{{ route('admin.roles.show', $role->id) }}">Voir</a>
+                                    <a class="btn btn-sm btn-outline--primary" href="{{ route('admin.roles.edit', $role->id) }}">Modifier</a>
+                                    {!! Form::open(['method' => 'DELETE','route' => ['admin.roles.destroy', $role->id],'style'=>'display:inline']) !!}
                                     {!! Form::submit('Supprimer', ['class' => 'btn btn-outline-danger btn-sm']) !!}
                                     {!! Form::close() !!}
                                 </td>
@@ -39,7 +39,7 @@
 @endsection
 @push('breadcrumb-plugins')
     <x-search-form placeholder="Search here..." />
-    <a href="{{route('manager.roles.create')}}" class="btn  btn-outline--primary h-45 addNewRole">
+    <a href="{{route('admin.roles.create')}}" class="btn  btn-outline--primary h-45 addNewRole">
         <i class="las la-plus"></i>@lang("Ajouter nouveau")
     </a>
     <i></i>
