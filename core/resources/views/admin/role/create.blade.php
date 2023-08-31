@@ -1,10 +1,10 @@
-@extends('manager.layouts.app')
+@extends('admin.layouts.app')
 @section('panel')
     <div class="row mb-none-30">
         <div class="col-lg-12 col-md-12 mb-30">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('manager.roles.store') }}">
+                    <form method="POST" action="{{ route('admin.roles.store') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Nom de rôle</label>
@@ -67,7 +67,7 @@
     </script> 
 @endsection
 @push('breadcrumb-plugins')
-    <x-back route="{{ route('manager.roles.index') }}" />
+    <x-back route="{{ route('admin.roles.index') }}" />
 @endpush
 @push('script')
     <script type="text/javascript">
