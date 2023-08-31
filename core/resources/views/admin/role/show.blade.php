@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('admin.layouts.app')
 @section('panel')
     <div class="row mb-none-30">
         <div class="col-lg-12 col-md-12 mb-30">
@@ -26,7 +26,7 @@
                                         </tr>
                                 @endforelse
                         </table>
-                        <a class="btn btn-outline--primary mt-4 w-100 h-45" href="{{ route('manager.roles.edit', $role->id) }}">Modifier</a>
+                        <a class="btn btn-outline--primary mt-4 w-100 h-45" href="{{ route('admin.roles.edit', $role->id) }}">Modifier</a>
                     </div>
                 </div>
             </div>
@@ -34,5 +34,5 @@
     </div>
 @endsection
 @push('breadcrumb-plugins')
-    <x-back route="{{ route('manager.roles.index') }}" />
+    <x-back route="{{ route('admin.roles.index') }}" />
 @endpush
